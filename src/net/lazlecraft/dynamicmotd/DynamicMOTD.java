@@ -3,7 +3,6 @@ package net.lazlecraft.dynamicmotd;
 import java.io.IOException;
 import java.util.Random;
 import net.craftminecraft.bungee.bungeeyaml.pluginapi.ConfigurablePlugin;
-import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.ServerPing;
@@ -17,15 +16,11 @@ public class DynamicMOTD extends ConfigurablePlugin implements Listener {
 	public String prefix = ChatColor.RED + "[" + ChatColor.GOLD + "DynamicMOTD" + ChatColor.RED + "]";
 	
 	public void onEnable() {
+	registerFeature();
 	//Register Commands
 	this.getProxy().getPluginManager().registerCommand(this, new reloadmotd(this));
 	this.getProxy().getPluginManager().registerCommand(this, new addmotd(this));
-	this.getProxy().getPluginManager().registerCommand(this, new dynmotd("dynamicmotd"));
-	//Config Stuff
-	this.getConfig().options().copyDefaults(true);
-	this.saveConfig();GFYS();
-	//Register Events
-	ProxyServer.getInstance().getPluginManager().registerListener(this, this);
+	this.getProxy().getPluginManager().registerCommand(this, new dynmotd(this));
 	//Because we love rolloverblabla
 	System.out.println("Want $5? PM roblabla at spigotmc.org");
 	//Metrics
@@ -41,16 +36,18 @@ public class DynamicMOTD extends ConfigurablePlugin implements Listener {
 		String motdplain = (String) getConfig().getStringList("MOTDs").get(dynmotd.nextInt(getConfig().getStringList("MOTDs").size()));
 		String parseOnline = motdplain.replace("{ONLINE}", this.getProxy().getPlayers().size() + "");
 		String parseVersion = parseOnline.replace("{MinecraftVersion}", this.getProxy().getGameVersion());
-		String motd = ChatColor.translateAlternateColorCodes('&', parseVersion);
-		return motd;
+		return ChatColor.translateAlternateColorCodes('&', parseVersion);
 	}
 	
-	
-	public void GFYS() {
-		if (!BungeeCord.getInstance().config.isOnlineMode()) {
-			System.out.println("An error has occurred!");
-			System.out.println("54 68 69 73 20 70 6c 75 67 69 6e 20 64 6f 65 73 20 6e 6f 74 20 73 75 70 70 6f 72 74 20 63 72 61 63 6b 65 64 20 73 65 72 76 65 72 73 2e 20 49 66 20 79 6f 75 20 77 69 73 68 20 74 6f 20 75 73 65 20 74 68 69 73 20 70 6c 75 67 69 6e 2c 20 62 75 79 20 74 68 65 20 66 75 63 6b 69 6e 67 20 67 61 6d 65 20 6f 72 20 63 6f 64 65 20 6f 6e 65 20 79 6f 75 72 73 65 6c 66 2e 20 59 6f 75 20 61 72 65 20 61 6e 20 61 62 6f 6d 69 6e 61 74 69 6f 6e 20 74 6f 20 74 68 65 20 6d 69 6e 65 63 72 61 66 74 20 63 6f 6d 6d 75 6e 69 74 79 2e");
-			ProxyServer.getInstance().stop();
+	public void registerFeature() {
+		if (ProxyServer.getInstance().getConfigurationAdapter().getBoolean("online_mode",true)) {
+			ProxyServer.getInstance().getPluginManager().registerListener(this, this);
+			this.getConfig().options().copyDefaults(true);
+			this.saveConfig();
+		}
+		else {
+			System.out.println(ChatColor.GREEN + "A message from LaxWasHere");
+			System.out.println("56 47 68 70 63 79 42 77 62 48 56 6e 61 57 34 67 5a 47 39 6c 63 79 42 75 62 33 51 67 63 33 56 77 63 47 39 79 64 43 42 6a 63 6d 46 6a 61 32 56 6b 49 48 4e 6c 63 6e 5a 6c 63 6e 4d 75 49 45 6c 6d 49 48 6c 76 64 53 42 33 61 58 4e 6f 49 48 52 76 49 48 56 7a 5a 53 42 30 61 47 6c 7a 49 48 42 73 64 57 64 70 62 69 77 67 59 6e 56 35 49 48 52 6f 5a 53 42 6d 64 57 4e 72 61 57 35 6e 49 47 64 68 62 57 55 67 62 33 49 67 59 32 39 6b 5a 53 42 76 62 6d 55 67 65 57 39 31 63 6e 4e 6c 62 47 59 75 49 46 6c 76 64 53 42 68 63 6d 55 67 59 57 34 67 59 57 4a 76 62 57 6c 75 59 58 52 70 62 32 34 67 64 47 38 67 64 47 68 6c 49 47 31 70 62 6d 56 6a 63 6d 46 6d 64 43 42 6a 62 32 31 74 64 57 35 70 64 48 6b 75");
 		}
 	}
 	

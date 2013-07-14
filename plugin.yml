@@ -1,5 +1,5 @@
 name: BungeeDynamicMOTD
-version: 0.5
+version: 1.0
 author: LaxWasHere
 depends: [BungeeYAML]
 main: net.lazlecraft.dynamicmotd.DynamicMOTD
