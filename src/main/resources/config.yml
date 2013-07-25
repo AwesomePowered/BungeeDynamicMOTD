@@ -1,0 +1,27 @@
+#  _____                              _      __  __  ____ _______ _____  
+# |  __ \                            (I)    |  \/  |/ __ \__   __|  __ \ 
+# | |  | |_   _ _ __   __ _ _ __ ___  _  ___| \  / | |  | | | |  | |  | |
+# | |  | | | | | '_ \ / _` | '_ ` _ \| |/ __| |\/| | |  | | | |  | |  | |
+# | |__| | |_| | | | | (_| | | | | | | | (__| |  | | |__| | | |  | |__| |
+# |_____/ \__, |_| |_|\__,_|_| |_| |_|_|\___|_|  |_|\____/  |_|  |_____/ 
+#          __/ |                                                         
+#         |___/   
+#                           By:The Awesome LaxWasHere 
+#
+# Available Variables {ONLINE} {MinecraftVersion}
+# See plugin page for more info.
+#
+MOTDs:
+    - '&a&lLaxWasHere'
+    - '&6&land so was'
+    - '&4&lRolloverblabla'
+    - '&dThis is &5an awesome &bserver!'
+    - '&6&lCurrent online players &4&l{ONLINE} &6&lRunning version &4&l{MinecraftVersion}' 
+    - '&6&lOnce upon a time a few mistakes ago'
+    - '&4&nI was in your sights, you got me alone'
+    - '&1&oYou found me, &2you found me, you found me'
+    - '&2&mI guess you didn''t care, and I guess I liked that'
+    - '&0And when I fell hard &ryou took a step back'
+    - '&7Without me, &ewithout me, &cwithout &e&kme'
+    - '&3And he''s long gone when he''s next to &fme'
+    - '&aAnd I realize &4&lthe blame is on &4&l&nme'
