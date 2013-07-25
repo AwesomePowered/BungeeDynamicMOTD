@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.lazlecraft</groupId>
   <artifactId>DynamicMOTD</artifactId>
-  <version>1.0-${build.number}</version>
+  <version>1.0-${BUILD_NUMBER}</version>
   <name>DynamicMOTD</name>
     <build>
         <defaultGoal>clean package</defaultGoal>
