@@ -6,6 +6,7 @@ import net.craftminecraft.bungee.bungeeyaml.pluginapi.ConfigurablePlugin;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.ServerPing;
+import net.md_5.bungee.api.event.LoginEvent;
 import net.md_5.bungee.api.event.ProxyPingEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
@@ -51,13 +52,25 @@ public class DynamicMOTD extends ConfigurablePlugin implements Listener {
 		}
 	}
 	
+	
+	//This is gonna suck so bad, I don't even know.
+	@EventHandler
+	public void LogPlayer(LoginEvent ev) {
+		String player = ev.getConnection().getName();
+		String IP = ev.getConnection().getAddress().getAddress().toString().trim();
+		if (this.getConfig().getBoolean("EnablePersonalMOTD")) {
+			this.getConfig().set(IP, player);
+			this.saveConfig();
+		}
+	}
+	
 	@EventHandler
 	public void onPing(ProxyPingEvent ev){
 		Byte protocolVersion = Byte.valueOf(ev.getResponse().getProtocolVersion());
 		String gameVersion = ev.getResponse().getGameVersion();
 		Integer currentPlayers = (ev.getResponse().getCurrentPlayers());
 		Integer maxPlayers = Integer.valueOf(ev.getResponse().getMaxPlayers());
-		ServerPing xal = new ServerPing(protocolVersion.byteValue(), gameVersion, getMotd(), currentPlayers.intValue(), maxPlayers.intValue());
+		ServerPing xal = new ServerPing(protocolVersion.byteValue(), gameVersion, getMotd().replace("{PLAYER}", this.getConfig().getString(ev.getConnection().getAddress().getAddress().toString().trim())), currentPlayers.intValue(), maxPlayers.intValue());
 		ev.setResponse(xal);
 	}
 }

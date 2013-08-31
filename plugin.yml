@@ -1,0 +1,5 @@
+name: BasicCommands
+version: ${project.version}
+author: LaxWasHere
+depends: [BungeeYAML]
+main: net.lazlecraft.bc.BasicCommands
